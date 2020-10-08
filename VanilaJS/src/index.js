@@ -1,71 +1,33 @@
 // <⚠️ DONT DELETE THIS ⚠️>
 import "./styles.css";
-const colors = ["#1abc9c", "#3498db", "#9b59b6", "#f39c12", "#e74c3c"];
 // <⚠️ /DONT DELETE THIS ⚠️>
 
-/*
-✅ The text of the title should change when the mouse is on top of it.
-✅ The text of the title should change when the mouse is leaves it.
-✅ When the window is resized the title should change.
-✅ On right click the title should also change.
-✅ The colors of the title should come from a color from the colors array.
-✅ DO NOT CHANGE .css, or .html files.
-✅ ALL function handlers should be INSIDE of "superEventHandler"
-*/
+//창을 열었을 때의 브라우저의 너비
+const init_width = width();
+//배경색을 바꿀 경계를 init_width에 1 ± degree로 설정
+const degree = 0.3;
+//이전 과제에서 가져온 색
+//과제 예시로 나온 색일 가능성이 커 가져옴
+const colors = ["#f39c12", "#3498db", "#9b59b6"];
 
-const h = document.querySelector("h2");
-
-let i = 0,
-  isResize = false,
-  item = h;
-
-const superEventHandler = {
-  //마우스를 item 위에 올렸을 때
-  mouseover: function () {
-    //resize 이벤트가 아님
-    isResize = false;
-    //h의 색을 바꿔줌
-    h.style.color = colors[i++];
-    i %= colors.length;
-    //h의 텍스트를 변경함
-    h.innerHTML = "The mouse is here!";
-  },
-  //마우스를 item 위에서 제거했을 때
-  mouseout: function () {
-    //resize 이벤트가 아님
-    isResize = false;
-    //h의 색을 바꿔줌
-    h.style.color = colors[i++];
-    i %= colors.length;
-    //h의 텍스트를 변경함
-    h.innerHTML = "The mouse is gone!";
-  },
-  resize: function () {
-    //resize 이벤트가 호출되지 않았다면
-    if (isResize === false) {
-      //resize 이벤트임
-      isResize = true;
-      //h의 색을 바꿔줌
-      h.style.color = colors[i++];
-      i %= colors.length;
-      //h의 텍스트를 변경함
-      h.innerHTML = "You juse resized!";
-    }
-  },
-  contextmenu: function () {
-    //resize 이벤트가 아님
-    isResize = false;
-    //h의 색을 바꿔줌
-    h.style.color = colors[i++];
-    i %= colors.length;
-    //h의 텍스트를 변경함
-    h.innerHTML = "That was a right click!";
-  }
-};
-
-for (let key in superEventHandler) {
-  //key가 resize가 되기 전, 즉 mouseover와 mouseout일 때는
-  //h에 이벤트를 설정하고, 그렇지 않을 때는 window에 이벤트를 설정
-  if (key === "resize") item = window;
-  item.addEventListener(key, superEventHandler[key]);
+//브라우저의 너비를 출력
+function width() {
+  return window.innerWidth;
 }
+
+//body의 배경색을 colors[i]로 변경
+function set_color(i) {
+  document.body.style.background = colors[i];
+}
+
+//페이지에 표시할 아무 메세지
+document.body.innerHTML = "<h2 style='color:white'>Hello!</h2>";
+//초기 배경색을 설정함
+set_color(2);
+
+//브라우저의 사이즈에 따라 페이지의 배경색을 변경함
+window.onresize = () => {
+  if (width() >= init_width * (1 + degree)) set_color(0);
+  else if (width() <= init_width * (1 - degree)) set_color(1);
+  else set_color(2);
+};
