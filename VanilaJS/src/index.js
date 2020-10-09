@@ -1,33 +1,35 @@
-// <⚠️ DONT DELETE THIS ⚠️>
 import "./styles.css";
-// <⚠️ /DONT DELETE THIS ⚠️>
 
-//창을 열었을 때의 브라우저의 너비
-const init_width = width();
-//배경색을 바꿀 경계를 init_width에 1 ± degree로 설정
-const degree = 0.3;
-//이전 과제에서 가져온 색
-//과제 예시로 나온 색일 가능성이 커 가져옴
-const colors = ["#f39c12", "#3498db", "#9b59b6"];
+// You're gonna need this
+const NINE_HOURS_MILLISECONDS = 32400000;
+const h = document.querySelector("h4");
 
-//브라우저의 너비를 출력
-function width() {
-  return window.innerWidth;
+function getTime() {
+  // Don't delete this.
+  const xmasDay = new Date("2020-12-24:00:00:00+0900");
+  //크리스마스 이브와 현재 시간의 차
+  //값이 한국 표준시 기준으로 나와 NINE_HOURS_MILLISECONDS를 사용하지 않음
+  const diff = xmasDay.getTime() - new Date().getTime();
+
+  //diff에서 d/h/m/s/ms를 추출
+  const diffDay = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const diffHr = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const diffMin = Math.floor((diff / (1000 * 60)) % 60);
+  const diffSec = Math.floor((diff / 1000) % 60);
+  const diffMilli = Math.floor(diff % 1000);
+
+  //diff에서 추출한 데이터를 형식에 맞추어 h3에 표시
+  h.innerText =
+    `${diffDay}d ` +
+    `${(diffHr < 10 ? "0" : "") + diffHr}h ` +
+    `${(diffMin < 10 ? "0" : "") + diffMin}m ` +
+    `${(diffSec < 10 ? "0" : "") + diffSec}s ` +
+    //시, 분, 초와 다르게 밀리초는 세 자리 수까지 표현 가능
+    `${(diffMilli < 10 ? "00" : diffMilli < 100 ? "0" : "") + diffMilli}`;
 }
 
-//body의 배경색을 colors[i]로 변경
-function set_color(i) {
-  document.body.style.background = colors[i];
+//setInterval을 이용해 getTime을 1밀리초마다 실행
+function init() {
+  setInterval(getTime, 1);
 }
-
-//페이지에 표시할 아무 메세지
-document.body.innerHTML = "<h2 style='color:white'>Hello!</h2>";
-//초기 배경색을 설정함
-set_color(2);
-
-//브라우저의 사이즈에 따라 페이지의 배경색을 변경함
-window.onresize = () => {
-  if (width() >= init_width * (1 + degree)) set_color(0);
-  else if (width() <= init_width * (1 - degree)) set_color(1);
-  else set_color(2);
-};
+init();
