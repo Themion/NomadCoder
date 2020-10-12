@@ -32,8 +32,7 @@ function submitHandler (event) {
 function nameHandler () {
     if (localStorage.getItem(USERNAME)) { // 사용자 이름이 localStorage에 있다면
         // 사용자 이름을 출력
-        showName()
-    
+        showName()  
     } else {                              // 　　　 　　　             　 없다면
         //사용자 이름을 form으로 입력받는다
         nameForm.addEventListener("submit", submitHandler)
