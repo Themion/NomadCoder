@@ -79,7 +79,7 @@ function push_item (item, html_class, if_save) {
     span.innerText = item.text
 
     // 삭제 버튼임을 표시하고 이벤트 리스너를 pop_item으로 설정
-    del_btn.innerText = `❌`
+    del_btn.innerText = '❌'
     del_btn.addEventListener('click', pop_item)
 
     // 이동 버튼임을 표시하고 이벤트 리스너를 move_item으로 설정
