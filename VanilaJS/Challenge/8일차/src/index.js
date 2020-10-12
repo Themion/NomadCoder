@@ -103,6 +103,7 @@ function push_item (item, html_class, if_save) {
         f.push(item)
     }
 
+    //저장해야 하는 경우에는 localStorage에 저장
     if (if_save) save()
 }
 
