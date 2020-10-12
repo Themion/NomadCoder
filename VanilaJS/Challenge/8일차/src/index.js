@@ -28,7 +28,8 @@ function move_item (event) {
     // 한 쪽에서 pop한 item을 다른 쪽에 push한다
     push_item(
         pop_item(event), 
-        (html_class === PENDING) ? FINISHED : PENDING
+        (html_class === PENDING) ? FINISHED : PENDING,
+        true
     )
 
     // 배열에 변화가 있었으므로 배열을 localStorage에 저장
@@ -65,7 +66,7 @@ function pop_item (event) {
 }
 
 // 할 일을 ul과 todo에 추가
-function push_item (item, html_class) {
+function push_item (item, html_class, if_save) {
     // item의 정보와 버튼을 묶는 li
     const li = document.createElement('li')
 
@@ -102,8 +103,7 @@ function push_item (item, html_class) {
         f.push(item)
     }
 
-    //push_item은 init에서도 호출되므로 push_init에서 저장할 경우
-    //localStorage의 데이터를 잃어버릴 가능성이 있어 저장하지 않는다
+    if (if_save) save()
 }
 
 // form에서 submit 이벤트가 일어났을 경우
@@ -118,7 +118,7 @@ function submit_handler (event) {
     }
 
     // 배열에 할 일을 push하고 저장
-    push_item(item, PENDING)
+    push_item(item, PENDING, true)
     save()
 
     // 입력을 끝냈으므로 input 칸을 비움
@@ -133,7 +133,7 @@ function load(target) {
     if (local) {
         //배열을 파싱한 뒤 배열의 클래스에 맞춰 push
         const parse = JSON.parse(local)
-        parse.forEach((item) => { push_item(item, target) })
+        parse.forEach((item) => { push_item(item, target, false) })
     }
 }
 
