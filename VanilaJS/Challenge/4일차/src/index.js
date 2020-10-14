@@ -1,7 +1,3 @@
-// <⚠️ DONT DELETE THIS ⚠️>
-import "./styles.css";
-// <⚠️ /DONT DELETE THIS ⚠️>
-
 //창을 열었을 때의 브라우저의 너비
 const init_width = width();
 //배경색을 바꿀 경계를 init_width에 1 ± degree로 설정
