@@ -1,5 +1,5 @@
 // HTML 안의 여러 item들
-const nameDiv = document.querySelector(".name")
+const nameDiv = document.querySelector("div.name")
 
 const nameForm = nameDiv.querySelector("form")
 const nameInput = nameForm.querySelector("input")

@@ -6,27 +6,34 @@
     <link rel="stylesheet" href="src/styles.css" />
   </head>
 
-  <body>
-    <div class="clock">
-      <h1 class="clock">00:00</h1>
+  <body class="center">
+    <div class="clock center">
+      <span class="clock text">00:00</h1>
     </div>
 
-    <div class="name">
+    <div class="name center">
       <form class="name">
-        <input type="text" placeholder="username" />
-        <button>submit</button>
+        <input class="text" type="text" placeholder="username" />
+        <button class="text">submit</button>
       </form>
-      <h4 class="hide"></h4>
+      <h4 class="hide text"></h4>
     </div>
     
-    <div class="todo">
+    <div class="todo center">
       <form>
         <input type="text" placeholder="Write a TODO" />
       </form>
-      <ul></ul>
+      <div class="todo list"></div>
     </div>
+    
+    <div class="weather right">
+      <span class="weather text"></span>
+    </div>
+
     <script src="src/clock.js"></script>
     <script src="src/name.js"></script>
     <script src="src/todo.js"></script>
+    <script src="src/weather.js"></script>
+    <script src="src/bg.js"></script>
   </body>
 </html>

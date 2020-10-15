@@ -3,7 +3,7 @@ const todoDiv = document.querySelector(".todo")
 
 const todoForm = todoDiv.querySelector("form")
 const todoInput = todoForm.querySelector("input")
-const todoList = todoDiv.querySelector("ul")
+const todoList = todoDiv.querySelector(".todo.list")
 
 // localStorage에서 todo 항목들을 저장할 공간
 const TODO_ITEM = 'todo'
@@ -30,7 +30,7 @@ function popTodoItem (event) {
 // 할 일을 ul과 todo에 추가
 function pushTodoItem (todoItem) {
     // ul에 표시할 item과 삭제 버튼을 생성
-    const li = document.createElement('li')
+    const item_div = document.createElement('div')
     const btn = document.createElement('button')
 
     // 버튼의 텍스트와 margin을 추가
@@ -39,12 +39,13 @@ function pushTodoItem (todoItem) {
     btn.addEventListener('click', popTodoItem)
 
     // item에 텍스트와 버튼, id를 추가
-    li.innerText = todoItem.text
-    li.appendChild(btn)
-    li.setAttribute('id', todoItem.id)
+    item_div.innerText = todoItem.text
+    item_div.classList.add('text')
+    item_div.appendChild(btn)
+    item_div.setAttribute('id', todoItem.id)
 
     // todoList에 item을 추가
-    todoList.appendChild(li)
+    todoList.appendChild(item_div)
     // todo에 item을 추가
     todo.push(todoItem)
 }
@@ -56,9 +57,12 @@ function submitHandler (event) {
 
     // 할 일에 생성시간을 id로 부여함
     const todoItem = {
-        text: todoInput.value,
+        text: todoInput.value.trim(),
         id: new Date().getTime()
     }
+
+    //할 일의 내용이 빈 문자열이라면 할 일을 추가하지 않는다
+    if(todoItem === '') return;
 
     //변수 todo에 할 일을 push하고 저장한다
     pushTodoItem(todoItem)
@@ -76,7 +80,7 @@ function loadTodo () {
         // string 형태로 저장된 todo를 parse한 뒤
         const parseTodo = JSON.parse(localTodo)
         // todo의 각 아이템을 변수에 push한다
-        parseTodo.forEach((parseItem) => {pushTodoItem(parseItem)})
+        parseTodo.forEach((parseItem) => { pushTodoItem(parseItem) })
     }
 }
 
