@@ -40,10 +40,15 @@ span.clock {
 
 div.clock {
     padding-top: 10%;
+    padding-bottom: 1%;
 }
 
 div.name .text {
     font-size: 30px;
+}
+
+div.todo {
+    padding-top: 5%;
 }
 
 div.todo .text,
